@@ -1074,6 +1074,28 @@ Error generating stack: `+l.message+`
     btn.disabled  = true;
     text.textContent = 'Sending…';
 
+    // Get form values for the email body
+    const lastName  = document.getElementById('lastName').value.trim();
+    const phone     = document.getElementById('phone').value.trim();
+    const userType  = document.getElementById('userType').value;
+    const subject   = document.getElementById('subject').value;
+
+    // Construct the mailto link with explicit black text styling
+    // Note: Most email clients ignore inline CSS in mailto body, but we can format the text clearly.
+    const body = `Name: ${firstName} ${lastName}
+Email: ${email}
+Phone: ${phone}
+User Type: ${userType}
+Subject: ${subject}
+
+Message:
+${message}`;
+
+    const mailtoLink = `mailto:hy3ntransportservices@gmail.com?subject=${encodeURIComponent(subject || 'Website Contact Form')} - ${encodeURIComponent(firstName)}&body=${encodeURIComponent(body)}`;
+    
+    // Open the email client
+    window.location.href = mailtoLink;
+
     setTimeout(() => {
       document.getElementById('contactForm').style.display   = 'none';
       document.getElementById('formSuccess').style.display   = 'block';
