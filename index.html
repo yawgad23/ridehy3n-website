@@ -756,7 +756,7 @@ Error generating stack: `+l.message+`
         <li>Full Maintenance Support</li>
         <li>Insurance Included</li>
       </ul>
-      <a href="#contact" class="btn-primary" style="width:100%">Apply for Car</a>
+      <button onclick="document.getElementById('modal-car').style.display='flex'" class="btn-primary" style="width:100%;cursor:pointer;border:none;">Apply for Car</button>
     </div>
 
     <!-- BIKES -->
@@ -770,7 +770,7 @@ Error generating stack: `+l.message+`
         <li>Roadworthy & License Ready</li>
         <li>Protective Gear Provided</li>
       </ul>
-      <a href="#contact" class="btn-primary" style="width:100%">Apply for Bike</a>
+      <button onclick="document.getElementById('modal-bike').style.display='flex'" class="btn-primary" style="width:100%;cursor:pointer;border:none;">Apply for Bike</button>
     </div>
   </div>
 </section>
@@ -1214,6 +1214,99 @@ ${message}`;
       nav.style.display = nav.style.display === "none" ? "flex" : "none";
     }
   </script>
+
+<!-- ===== APPLY FOR CAR MODAL ===== -->
+<div id="modal-car" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:9999;align-items:center;justify-content:center;padding:16px;overflow-y:auto;">
+  <div style="background:#111;border:1px solid #2a2a2a;border-radius:16px;max-width:560px;width:100%;padding:36px 32px;position:relative;max-height:90vh;overflow-y:auto;">
+    <button onclick="document.getElementById('modal-car').style.display='none'" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;">✕</button>
+    <div style="text-align:center;margin-bottom:24px;">
+      <span style="font-size:40px;">🚗</span>
+      <h2 style="color:#D4AF37;margin:8px 0 4px;font-size:1.6rem;">Apply for Car Work &amp; Pay</h2>
+      <p style="color:#9CA3AF;font-size:0.9rem;">Fill in the form below and our team will contact you within 24 hours.</p>
+    </div>
+    <form id="form-car" onsubmit="submitApplication(event,'car')" style="display:flex;flex-direction:column;gap:14px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">First Name *</label><input name="firstName" required placeholder="Kofi" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
+        <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Last Name *</label><input name="lastName" required placeholder="Mensah" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
+      </div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Phone Number *</label><input name="phone" type="tel" required placeholder="+233 54 000 0000" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Email Address</label><input name="email" type="email" placeholder="kofi@example.com" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">City / Location *</label><input name="city" required placeholder="e.g. Accra, Kumasi" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Do you have a valid driver's licence? *</label><select name="hasLicence" required style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"><option value="">Select</option><option>Yes</option><option>No — but I am willing to get one</option></select></div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Preferred Car Type</label><select name="carType" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"><option value="">Select (optional)</option><option>Saloon / Sedan</option><option>SUV</option><option>Minivan / Shared Ride</option><option>Kantanka Executive</option><option>Any</option></select></div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Referral Code <span style="color:#9CA3AF;">(if any)</span></label><input name="referral" placeholder="Enter referral code" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">How did you hear about HY3N? *</label><select name="hearAbout" required style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"><option value="">Select</option><option>Facebook</option><option>TikTok</option><option>Instagram</option><option>WhatsApp</option><option>Friend / Family</option><option>Radio / TV</option><option>Flyer / Poster</option><option>Google Search</option><option>Existing HY3N Driver</option><option>Other</option></select></div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Additional Message</label><textarea name="message" rows="3" placeholder="Anything else you'd like us to know?" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;resize:vertical;box-sizing:border-box;"></textarea></div>
+      <button type="submit" style="background:linear-gradient(135deg,#D4AF37,#B8960C);color:#000;font-weight:700;font-size:1rem;padding:14px;border:none;border-radius:10px;cursor:pointer;margin-top:4px;">Submit Application ✦</button>
+      <div id="car-success" style="display:none;text-align:center;color:#22c55e;font-weight:600;padding:8px;">✅ Application submitted! We'll contact you within 24 hours.</div>
+    </form>
+  </div>
+</div>
+
+<!-- ===== APPLY FOR BIKE MODAL ===== -->
+<div id="modal-bike" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.82);z-index:9999;align-items:center;justify-content:center;padding:16px;overflow-y:auto;">
+  <div style="background:#111;border:1px solid #2a2a2a;border-radius:16px;max-width:560px;width:100%;padding:36px 32px;position:relative;max-height:90vh;overflow-y:auto;">
+    <button onclick="document.getElementById('modal-bike').style.display='none'" style="position:absolute;top:16px;right:20px;background:none;border:none;color:#fff;font-size:24px;cursor:pointer;">✕</button>
+    <div style="text-align:center;margin-bottom:24px;">
+      <span style="font-size:40px;">🏍️</span>
+      <h2 style="color:#D4AF37;margin:8px 0 4px;font-size:1.6rem;">Apply for Motorbike Work &amp; Pay</h2>
+      <p style="color:#9CA3AF;font-size:0.9rem;">Fill in the form below and our team will contact you within 24 hours.</p>
+    </div>
+    <form id="form-bike" onsubmit="submitApplication(event,'bike')" style="display:flex;flex-direction:column;gap:14px;">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
+        <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">First Name *</label><input name="firstName" required placeholder="Kofi" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
+        <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Last Name *</label><input name="lastName" required placeholder="Mensah" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
+      </div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Phone Number *</label><input name="phone" type="tel" required placeholder="+233 54 000 0000" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Email Address</label><input name="email" type="email" placeholder="kofi@example.com" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">City / Location *</label><input name="city" required placeholder="e.g. Accra, Kumasi" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Do you have a valid rider's licence? *</label><select name="hasLicence" required style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"><option value="">Select</option><option>Yes</option><option>No — but I am willing to get one</option></select></div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Intended Use *</label><select name="intendedUse" required style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"><option value="">Select</option><option>Okada (Passenger Transport)</option><option>Express Delivery</option><option>Both</option></select></div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Referral Code <span style="color:#9CA3AF;">(if any)</span></label><input name="referral" placeholder="Enter referral code" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">How did you hear about HY3N? *</label><select name="hearAbout" required style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"><option value="">Select</option><option>Facebook</option><option>TikTok</option><option>Instagram</option><option>WhatsApp</option><option>Friend / Family</option><option>Radio / TV</option><option>Flyer / Poster</option><option>Google Search</option><option>Existing HY3N Driver</option><option>Other</option></select></div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Additional Message</label><textarea name="message" rows="3" placeholder="Anything else you'd like us to know?" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;resize:vertical;box-sizing:border-box;"></textarea></div>
+      <button type="submit" style="background:linear-gradient(135deg,#D4AF37,#B8960C);color:#000;font-weight:700;font-size:1rem;padding:14px;border:none;border-radius:10px;cursor:pointer;margin-top:4px;">Submit Application ✦</button>
+      <div id="bike-success" style="display:none;text-align:center;color:#22c55e;font-weight:600;padding:8px;">✅ Application submitted! We'll contact you within 24 hours.</div>
+    </form>
+  </div>
+</div>
+
+<script>
+function submitApplication(e, type) {
+  e.preventDefault();
+  const form = e.target;
+  const data = new FormData(form);
+  const payload = {};
+  data.forEach((v, k) => payload[k] = v);
+  payload.applicationType = type === 'car' ? 'Car Work & Pay' : 'Motorbike Work & Pay';
+  payload.submittedAt = new Date().toLocaleString('en-GH', {timeZone:'Africa/Accra'});
+
+  // Send to FormSubmit (free, no backend needed)
+  fetch('https://formsubmit.co/ajax/info@ridehy3n.com', {
+    method: 'POST',
+    headers: {'Content-Type':'application/json','Accept':'application/json'},
+    body: JSON.stringify(payload)
+  }).then(r => r.json()).then(() => {
+    form.style.display = 'none';
+    document.getElementById(type + '-success').style.display = 'block';
+    setTimeout(() => {
+      document.getElementById('modal-' + type).style.display = 'none';
+      form.reset();
+      form.style.display = 'flex';
+      document.getElementById(type + '-success').style.display = 'none';
+    }, 3500);
+  }).catch(() => {
+    alert('Something went wrong. Please try again or contact us directly.');
+  });
+}
+
+// Close modal on backdrop click
+['modal-car','modal-bike'].forEach(id => {
+  document.getElementById(id).addEventListener('click', function(e) {
+    if (e.target === this) this.style.display = 'none';
+  });
+});
+</script>
 
 </body>
 </html>
