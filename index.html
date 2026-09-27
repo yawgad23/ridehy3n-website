@@ -169,8 +169,8 @@
     gap: 20px; max-width: 1100px; margin: 56px auto 0;
   }
   .service-card {
-    background: var(--dark3); border: 1px solid rgba(255,255,255,0.07);
-    border-radius: 20px; padding: 32px 24px;
+    background: linear-gradient(150deg, rgba(32,32,32,0.98), var(--dark3)); border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 20px; padding: 24px;
     transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
   }
   .service-card:hover {
@@ -178,7 +178,19 @@
     border-color: rgba(255,209,0,0.35);
     box-shadow: 0 24px 60px rgba(0,0,0,0.5);
   }
-  .service-icon { font-size: 36px; margin-bottom: 16px; display: block; }
+  .service-vehicle {
+    height: 132px; margin: -10px -8px 14px; display: grid; place-items: center;
+    overflow: hidden; border-radius: 14px;
+    background: radial-gradient(circle at 50% 86%, rgba(255,209,0,0.18), transparent 46%);
+  }
+  .service-vehicle img {
+    display: block; width: 100%; height: 100%; object-fit: contain;
+    filter: drop-shadow(0 16px 18px rgba(0,0,0,0.48));
+    transition: transform 0.35s ease;
+  }
+  .service-card:hover .service-vehicle img { transform: scale(1.07) translateY(-2px); }
+  .service-vehicle--motorbike img { transform: scale(0.92); }
+  .service-card:hover .service-vehicle--motorbike img { transform: scale(0.98) translateY(-2px); }
   .service-name { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
   .service-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
   .service-badge {
@@ -726,13 +738,13 @@ Error generating stack: `+l.message+`
     <p class="section-sub centered" style="margin-bottom:0">From everyday commutes to premium rides and fast deliveries — HY3N has you covered.</p>
   </div>
   <div class="services-grid reveal">
-    <div class="service-card"><span class="service-icon">🚗</span><div class="service-name">Standard</div><div class="service-desc">Affordable everyday rides for your daily commute, errands, and more.</div><span class="service-badge badge-green">Most Popular</span></div>
-    <div class="service-card"><span class="service-icon">🛻</span><div class="service-name">Comfort</div><div class="service-desc">More space, more comfort — perfect for longer trips and family travel.</div><span class="service-badge badge-yellow">Premium</span></div>
-    <div class="service-card"><span class="service-icon">⭐</span><div class="service-name">Kantanka</div><div class="service-desc">Premium rides in Ghana's proudly made Kantanka vehicles. Executive class.</div><span class="service-badge badge-yellow">Executive</span></div>
-    <div class="service-card"><span class="service-icon">🏍️</span><div class="service-name">Okada</div><div class="service-desc">Fast motorcycle rides through traffic — beat the city rush every time.</div><span class="service-badge badge-red">Fastest</span></div>
-    <div class="service-card"><span class="service-icon">📦</span><div class="service-name">Express Delivery</div><div class="service-desc">Send packages across the city fast, securely and at great prices.</div><span class="service-badge badge-green">Same Day</span></div>
-    <div class="service-card"><span class="service-icon">✈️</span><div class="service-name">Airport Pickup</div><div class="service-desc">Reliable airport transfers to and from Kotoka International — zero stress.</div><span class="service-badge badge-yellow">Pre-Book</span></div>
-    <div class="service-card"><span class="service-icon">🔑</span><div class="service-name">Car Rental</div><div class="service-desc">Flexible daily or weekly car rentals with or without a driver.</div><span class="service-badge badge-green">New</span></div>
+    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/standard-car.webp" alt="HY3N Standard car" loading="lazy" decoding="async"></div><div class="service-name">Standard</div><div class="service-desc">Affordable everyday rides for your daily commute, errands, and more.</div><span class="service-badge badge-green">Most Popular</span></div>
+    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/comfort-car.webp" alt="HY3N Comfort car" loading="lazy" decoding="async"></div><div class="service-name">Comfort</div><div class="service-desc">More space, more comfort — perfect for longer trips and family travel.</div><span class="service-badge badge-yellow">Premium</span></div>
+    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/kantanka-car.webp" alt="HY3N Kantanka Executive car" loading="lazy" decoding="async"></div><div class="service-name">Kantanka</div><div class="service-desc">Premium rides in Ghana's proudly made Kantanka vehicles. Executive class.</div><span class="service-badge badge-yellow">Executive</span></div>
+    <div class="service-card"><div class="service-vehicle service-vehicle--motorbike"><img src="assets/vehicles/okada-motorbike.webp" alt="HY3N Okada motorbike" loading="lazy" decoding="async"></div><div class="service-name">Okada</div><div class="service-desc">Fast motorcycle rides through traffic — beat the city rush every time.</div><span class="service-badge badge-red">Fastest</span></div>
+    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/delivery-motorbike.webp" alt="HY3N Express Delivery motorbike" loading="lazy" decoding="async"></div><div class="service-name">Express Delivery</div><div class="service-desc">Send packages across the city fast, securely and at great prices.</div><span class="service-badge badge-green">Same Day</span></div>
+    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/comfort-car.webp" alt="HY3N Airport Pickup car" loading="lazy" decoding="async"></div><div class="service-name">Airport Pickup</div><div class="service-desc">Reliable airport transfers to and from Kotoka International — zero stress.</div><span class="service-badge badge-yellow">Pre-Book</span></div>
+    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/standard-car.webp" alt="HY3N Car Rental car" loading="lazy" decoding="async"></div><div class="service-name">Car Rental</div><div class="service-desc">Flexible daily or weekly car rentals with or without a driver.</div><span class="service-badge badge-green">New</span></div>
   </div>
 </section>
 
