@@ -383,7 +383,19 @@
     transition: transform 0.3s;
   }
   .wp-card:hover { transform: translateY(-10px); border-color: var(--yellow); }
-  .wp-icon { font-size: 50px; margin-bottom: 20px; display: block; }
+  .wp-vehicle {
+    height: 142px; margin: -10px -12px 22px; display: grid; place-items: center;
+    overflow: hidden; border-radius: 18px;
+    background: radial-gradient(circle at 50% 86%, rgba(255,209,0,0.18), transparent 48%);
+  }
+  .wp-vehicle img {
+    display: block; width: 100%; height: 100%; object-fit: contain;
+    filter: drop-shadow(0 18px 18px rgba(0,0,0,0.55));
+    transition: transform 0.3s ease;
+  }
+  .wp-card:hover .wp-vehicle img { transform: scale(1.06) translateY(-2px); }
+  .wp-vehicle--bike img { transform: scale(0.93); }
+  .wp-card:hover .wp-vehicle--bike img { transform: scale(0.99) translateY(-2px); }
   .wp-title { font-size: 1.5rem; font-weight: 800; color: var(--yellow); margin-bottom: 15px; }
   .wp-desc { font-size: 0.95rem; color: var(--muted); line-height: 1.6; margin-bottom: 25px; }
   .wp-features { list-style: none; text-align: left; margin-bottom: 30px; }
@@ -760,7 +772,7 @@ Error generating stack: `+l.message+`
   <div class="wp-grid">
     <!-- CARS -->
     <div class="wp-card reveal">
-      <span class="wp-icon">🚗</span>
+      <div class="wp-vehicle"><img src="assets/vehicles/standard-car.webp" alt="HY3N Work and Pay car" loading="lazy" decoding="async"></div>
       <h3 class="wp-title">Car Work & Pay</h3>
       <p class="wp-desc">Get a brand new or high-quality used car for ride-hailing and own it after a flexible payment period.</p>
       <ul class="wp-features">
@@ -774,7 +786,7 @@ Error generating stack: `+l.message+`
 
     <!-- BIKES -->
     <div class="wp-card reveal">
-      <span class="wp-icon">🏍️</span>
+      <div class="wp-vehicle wp-vehicle--bike"><img src="assets/vehicles/delivery-motorbike.webp" alt="HY3N Work and Pay motorbike" loading="lazy" decoding="async"></div>
       <h3 class="wp-title">Motorbike Work & Pay</h3>
       <p class="wp-desc">Start your delivery or transport business today with our reliable motorbike work and pay scheme.</p>
       <ul class="wp-features">
