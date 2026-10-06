@@ -988,7 +988,11 @@ Error generating stack: `+l.message+`
       <h3>Send Us a Message</h3>
       <p class="form-sub">We'll get back to you within 24 hours.</p>
 
-      <div id="contactForm">
+      <form id="contactForm" onsubmit="submitForm(event)">
+        <div style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;" aria-hidden="true">
+          <label for="contact-website">Leave this field blank</label>
+          <input id="contact-website" name="website" type="text" tabindex="-1" autocomplete="off"/>
+        </div>
         <div class="form-row">
           <div class="form-group">
             <label>First Name</label>
@@ -1040,10 +1044,11 @@ Error generating stack: `+l.message+`
           <textarea id="message" placeholder="Tell us how we can help you…" required></textarea>
         </div>
 
-        <button class="form-submit" onclick="submitForm()">
+        <div id="contactFormError" role="alert" style="display:none;color:#ff8b8b;font-size:0.88rem;margin-top:4px;"></div>
+        <button class="form-submit" type="submit">
           <span id="submitText">Send Message ✦</span>
         </button>
-      </div>
+      </form>
 
       <!-- Success state -->
       <div class="form-success" id="formSuccess">
@@ -1122,69 +1127,72 @@ Error generating stack: `+l.message+`
   }, { threshold: 0.1 });
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-  // Form submit
-  function submitForm() {
-    const firstName = document.getElementById('firstName').value.trim();
-    const email     = document.getElementById('email').value.trim();
-    const message   = document.getElementById('message').value.trim();
+  const HY3N_WEBSITE_INTAKE_URL = 'https://api-yvurtipaxq-ew.a.run.app/api/website/intake';
 
-    if (!firstName || !email || !message) {
-      // Shake empty required fields
-      ['firstName','email','message'].forEach(id => {
-        const el = document.getElementById(id);
-        if (!el.value.trim()) {
-          el.style.borderColor = '#E31B23';
-          el.style.boxShadow   = '0 0 0 3px rgba(227,27,35,0.15)';
-          setTimeout(() => { el.style.borderColor = ''; el.style.boxShadow = ''; }, 2000);
-        }
-      });
-      return;
+  function valueOf(id) {
+    return document.getElementById(id).value.trim();
+  }
+
+  async function submitWebsiteIntake(payload) {
+    const response = await fetch(HY3N_WEBSITE_INTAKE_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    const body = await response.json().catch(() => ({}));
+    if (!response.ok || !body.success) {
+      throw new Error(body.message || 'The form could not be sent. Please try again.');
     }
+    return body;
+  }
 
-    const btn  = document.querySelector('.form-submit');
+  function setFormError(id, message) {
+    const error = document.getElementById(id);
+    error.textContent = message || '';
+    error.style.display = message ? 'block' : 'none';
+  }
+
+  async function submitForm(event) {
+    event.preventDefault();
+    const form = event.currentTarget;
+    if (!form.reportValidity()) return;
+
+    const button = form.querySelector('button[type="submit"]');
     const text = document.getElementById('submitText');
-    btn.disabled  = true;
+    setFormError('contactFormError', '');
+    button.disabled = true;
     text.textContent = 'Sending…';
 
-    // Get form values for the email body
-    const lastName  = document.getElementById('lastName').value.trim();
-    const phone     = document.getElementById('phone').value.trim();
-    const userType  = document.getElementById('userType').value;
-    const subject   = document.getElementById('subject').value;
-
-    // Construct the mailto link with explicit black text styling
-    // Note: Most email clients ignore inline CSS in mailto body, but we can format the text clearly.
-    const body = `Name: ${firstName} ${lastName}
-Email: ${email}
-Phone: ${phone}
-User Type: ${userType}
-Subject: ${subject}
-
-Message:
-${message}`;
-
-    const mailtoLink = `mailto:hy3ntransportservices@gmail.com?subject=${encodeURIComponent(subject || 'Website Contact Form')} - ${encodeURIComponent(firstName)}&body=${encodeURIComponent(body)}`;
-    
-    // Open the email client
-    window.open(mailtoLink, "_blank"); contactForm.style.display = "none"; document.getElementById("formSuccess").style.display = "block";
-
-    setTimeout(() => {
-      document.getElementById('contactForm').style.display   = 'none';
-      document.getElementById('formSuccess').style.display   = 'block';
-    }, 1200);
+    try {
+      await submitWebsiteIntake({
+        kind: 'contact',
+        firstName: valueOf('firstName'),
+        lastName: valueOf('lastName'),
+        email: valueOf('email'),
+        phone: valueOf('phone'),
+        userType: document.getElementById('userType').value,
+        subject: document.getElementById('subject').value,
+        message: valueOf('message'),
+        website: form.elements.website.value,
+      });
+      form.style.display = 'none';
+      document.getElementById('formSuccess').style.display = 'block';
+      form.reset();
+    } catch (error) {
+      setFormError('contactFormError', error.message || 'The form could not be sent. Please try again.');
+    } finally {
+      button.disabled = false;
+      text.textContent = 'Send Message ✦';
+    }
   }
 
   function resetForm() {
-    document.getElementById('contactForm').style.display  = '';
+    const form = document.getElementById('contactForm');
+    form.style.display  = '';
     document.getElementById('formSuccess').style.display  = 'none';
-    document.getElementById('firstName').value  = '';
-    document.getElementById('lastName').value   = '';
-    document.getElementById('email').value      = '';
-    document.getElementById('phone').value      = '';
-    document.getElementById('userType').value   = '';
-    document.getElementById('subject').value    = '';
-    document.getElementById('message').value    = '';
-    const btn  = document.querySelector('.form-submit');
+    form.reset();
+    setFormError('contactFormError', '');
+    const btn  = form.querySelector('.form-submit');
     const text = document.getElementById('submitText');
     btn.disabled       = false;
     text.textContent   = 'Send Message ✦';
@@ -1266,6 +1274,7 @@ ${message}`;
       <p style="color:#9CA3AF;font-size:0.9rem;">Join Ghana's proudly owned ride-hailing platform. Our team will contact you within 24 hours.</p>
     </div>
     <form id="form-driver-signup" onsubmit="submitApplication(event,'driver-signup')" style="display:flex;flex-direction:column;gap:14px;">
+      <div style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;" aria-hidden="true"><label for="driver-signup-website">Leave this field blank</label><input id="driver-signup-website" name="website" type="text" tabindex="-1" autocomplete="off"/></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
         <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">First Name *</label><input name="firstName" required placeholder="Kofi" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
         <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Last Name *</label><input name="lastName" required placeholder="Mensah" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
@@ -1279,6 +1288,7 @@ ${message}`;
       <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">How did you hear about HY3N? *</label><select name="hearAbout" required style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"><option value="">Select</option><option>Facebook</option><option>TikTok</option><option>Instagram</option><option>WhatsApp</option><option>Friend / Family</option><option>Radio / TV</option><option>Flyer / Poster</option><option>Google Search</option><option>Existing HY3N Driver</option><option>Other</option></select></div>
       <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Additional Message</label><textarea name="message" rows="3" placeholder="Anything else you'd like us to know?" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;resize:vertical;box-sizing:border-box;"></textarea></div>
       <button type="submit" style="background:linear-gradient(135deg,#D4AF37,#B8960C);color:#000;font-weight:700;font-size:1rem;padding:14px;border:none;border-radius:10px;cursor:pointer;margin-top:4px;">Submit Application ✦</button>
+      <div id="driver-signup-error" role="alert" style="display:none;text-align:center;color:#ff8b8b;font-size:0.88rem;padding:2px 8px;"></div>
       <div id="driver-signup-success" style="display:none;text-align:center;color:#22c55e;font-weight:600;padding:8px;">✅ Application submitted! We'll contact you within 24 hours.</div>
     </form>
   </div>
@@ -1294,6 +1304,7 @@ ${message}`;
       <p style="color:#9CA3AF;font-size:0.9rem;">Fill in the form below and our team will contact you within 24 hours.</p>
     </div>
     <form id="form-car" onsubmit="submitApplication(event,'car')" style="display:flex;flex-direction:column;gap:14px;">
+      <div style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;" aria-hidden="true"><label for="car-website">Leave this field blank</label><input id="car-website" name="website" type="text" tabindex="-1" autocomplete="off"/></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
         <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">First Name *</label><input name="firstName" required placeholder="Kofi" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
         <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Last Name *</label><input name="lastName" required placeholder="Mensah" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
@@ -1305,6 +1316,7 @@ ${message}`;
       <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">How did you hear about HY3N? *</label><select name="hearAbout" required style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"><option value="">Select</option><option>Facebook</option><option>TikTok</option><option>Instagram</option><option>WhatsApp</option><option>Friend / Family</option><option>Radio / TV</option><option>Flyer / Poster</option><option>Google Search</option><option>Existing HY3N Driver</option><option>Other</option></select></div>
       <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Additional Message</label><textarea name="message" rows="3" placeholder="Anything else you'd like us to know?" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;resize:vertical;box-sizing:border-box;"></textarea></div>
       <button type="submit" style="background:linear-gradient(135deg,#D4AF37,#B8960C);color:#000;font-weight:700;font-size:1rem;padding:14px;border:none;border-radius:10px;cursor:pointer;margin-top:4px;">Submit Application ✦</button>
+      <div id="car-error" role="alert" style="display:none;text-align:center;color:#ff8b8b;font-size:0.88rem;padding:2px 8px;"></div>
       <div id="car-success" style="display:none;text-align:center;color:#22c55e;font-weight:600;padding:8px;">✅ Application submitted! We'll contact you within 24 hours.</div>
     </form>
   </div>
@@ -1320,6 +1332,7 @@ ${message}`;
       <p style="color:#9CA3AF;font-size:0.9rem;">Fill in the form below and our team will contact you within 24 hours.</p>
     </div>
     <form id="form-bike" onsubmit="submitApplication(event,'bike')" style="display:flex;flex-direction:column;gap:14px;">
+      <div style="position:absolute;left:-10000px;width:1px;height:1px;overflow:hidden;" aria-hidden="true"><label for="bike-website">Leave this field blank</label><input id="bike-website" name="website" type="text" tabindex="-1" autocomplete="off"/></div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
         <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">First Name *</label><input name="firstName" required placeholder="Kofi" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
         <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Last Name *</label><input name="lastName" required placeholder="Mensah" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
@@ -1332,27 +1345,43 @@ ${message}`;
       <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">How did you hear about HY3N? *</label><select name="hearAbout" required style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"><option value="">Select</option><option>Facebook</option><option>TikTok</option><option>Instagram</option><option>WhatsApp</option><option>Friend / Family</option><option>Radio / TV</option><option>Flyer / Poster</option><option>Google Search</option><option>Existing HY3N Driver</option><option>Other</option></select></div>
       <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Additional Message</label><textarea name="message" rows="3" placeholder="Anything else you'd like us to know?" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;resize:vertical;box-sizing:border-box;"></textarea></div>
       <button type="submit" style="background:linear-gradient(135deg,#D4AF37,#B8960C);color:#000;font-weight:700;font-size:1rem;padding:14px;border:none;border-radius:10px;cursor:pointer;margin-top:4px;">Submit Application ✦</button>
+      <div id="bike-error" role="alert" style="display:none;text-align:center;color:#ff8b8b;font-size:0.88rem;padding:2px 8px;"></div>
       <div id="bike-success" style="display:none;text-align:center;color:#22c55e;font-weight:600;padding:8px;">✅ Application submitted! We'll contact you within 24 hours.</div>
     </form>
   </div>
 </div>
 
 <script>
-function submitApplication(e, type) {
+async function submitApplication(e, type) {
   e.preventDefault();
   const form = e.target;
-  const data = new FormData(form);
-  const payload = {};
-  data.forEach((v, k) => payload[k] = v);
-  payload.applicationType = type === 'car' ? 'Car Work & Pay' : type === 'bike' ? 'Motorbike Work & Pay' : 'Driver Sign Up';
-  payload.submittedAt = new Date().toLocaleString('en-GH', {timeZone:'Africa/Accra'});
+  if (!form.reportValidity()) return;
 
-  // Send to FormSubmit (free, no backend needed)
-  fetch('https://formsubmit.co/ajax/info@ridehy3n.com', {
-    method: 'POST',
-    headers: {'Content-Type':'application/json','Accept':'application/json'},
-    body: JSON.stringify(payload)
-  }).then(r => r.json()).then(() => {
+  const button = form.querySelector('button[type="submit"]');
+  const error = document.getElementById(type + '-error');
+  const originalLabel = button.textContent;
+  error.textContent = '';
+  error.style.display = 'none';
+  button.disabled = true;
+  button.textContent = 'Submitting…';
+
+  const values = Object.fromEntries(new FormData(form).entries());
+  try {
+    await submitWebsiteIntake({
+      kind: type,
+      firstName: String(values.firstName || '').trim(),
+      lastName: String(values.lastName || '').trim(),
+      phone: String(values.phone || '').trim(),
+      email: String(values.email || '').trim(),
+      city: String(values.city || '').trim(),
+      vehicleType: String(values.vehicleType || '').trim(),
+      ownsVehicle: String(values.ownsVehicle || '').trim(),
+      hasLicence: String(values.hasLicence || '').trim(),
+      intendedUse: String(values.intendedUse || '').trim(),
+      hearAbout: String(values.hearAbout || '').trim(),
+      message: String(values.message || '').trim(),
+      website: String(values.website || '').trim(),
+    });
     form.style.display = 'none';
     document.getElementById(type + '-success').style.display = 'block';
     setTimeout(() => {
@@ -1361,9 +1390,13 @@ function submitApplication(e, type) {
       form.style.display = 'flex';
       document.getElementById(type + '-success').style.display = 'none';
     }, 3500);
-  }).catch(() => {
-    alert('Something went wrong. Please try again or contact us directly.');
-  });
+  } catch (submissionError) {
+    error.textContent = submissionError.message || 'The application could not be submitted. Please try again.';
+    error.style.display = 'block';
+  } finally {
+    button.disabled = false;
+    button.textContent = originalLabel;
+  }
 }
 
 // Close modal on backdrop click
