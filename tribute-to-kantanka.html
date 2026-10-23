@@ -42,9 +42,9 @@
     .hero-subtitle { color:#4d4943; max-width:570px; font-family:"DM Serif Display",Georgia,serif; font-size:clamp(23px,3vw,36px); line-height:1.25; margin:0; }
     .hero-rule { width:96px; height:3px; margin:34px 0 26px; background:var(--gold); }
     .hero-intro { color:#4f4a43; font-size:16px; max-width:610px; margin:0; }
-    .portrait-frame { position:relative; max-width:500px; justify-self:end; padding:0; background:transparent; box-shadow:0 24px 70px rgba(51,40,20,.16); transform:rotate(1.2deg); }
+    .portrait-frame { position:relative; width:100%; max-width:500px; justify-self:end; padding:0; background:transparent; box-shadow:none; transform:rotate(1.2deg); }
     .portrait-frame::before { content:""; position:absolute; inset:-10px; border:1px solid var(--gold-soft); z-index:-1; }
-    .portrait-frame img { width:100%; height:auto; display:block; object-fit:contain; filter:saturate(.9) contrast(1.02); background:transparent; }
+    .portrait-frame img { width:100%; height:auto; max-height:none; display:block; object-fit:contain; filter:saturate(.9) contrast(1.02); background:transparent; }
     .portrait-credit { color:#8a826e; font-size:10px; line-height:1.4; margin:10px 2px 0; }
     .content { width:min(920px,calc(100% - 40px)); margin:auto; padding:clamp(74px,10vw,132px) 0; }
     .content-section { display:grid; grid-template-columns:180px minmax(0,1fr); gap:clamp(26px,6vw,78px); padding:0 0 74px; margin:0 0 74px; border-bottom:1px solid var(--line); }
@@ -88,7 +88,7 @@
 <body>
   <header class="site-bar">
     <div class="site-bar-inner">
-      <a class="brand" href="/" aria-label="HY3N home"><img src="assets/hy3n-logo-ride-with-pride.png" alt="HY3N — Ride With Pride" /></a>
+      <a class="brand" href="/" aria-label="HY3N home"><img src="assets/tribute-logo-ride-with-pride.png" alt="HY3N — Ride With Pride" /></a>
       <a class="back-link" href="/">Back to HY3N</a>
     </div>
   </header>
@@ -154,7 +154,7 @@
 
     <section class="closing" aria-labelledby="dedication-title">
       <div class="closing-inner">
-        <img src="assets/hy3n-logo-ride-with-pride.png" alt="HY3N" />
+        <img src="assets/tribute-logo-ride-with-pride.png" alt="HY3N" />
         <h2 id="dedication-title">In Honour of a Visionary.</h2>
         <p class="dedication">Inspired by His Legacy. Committed to Ghana’s Future.</p>
         <p class="signature">HY3N Transport Technologies Ltd</p>
