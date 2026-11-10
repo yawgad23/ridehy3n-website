@@ -194,11 +194,12 @@
   .service-card:hover .service-vehicle img { transform: none; }
   .service-vehicle--motorbike img { transform: scale(0.92); }
   .service-card:hover .service-vehicle--motorbike img { transform: scale(0.98) translateY(-2px); }
-  .service-vehicle--kantanka { position: relative; }
-  .kantanka-star-emblem {
-    position: absolute; z-index: 2; top: 56%; left: 44%; transform: translate(-50%,-50%);
-    color: var(--black); font-size: 25px; line-height: 1;
-    text-shadow: 0 0 8px rgba(255,255,255,0.52), 0 2px 6px rgba(0,0,0,0.88);
+  .service-vehicle--suv { height: 214px; }
+  .service-vehicle--delivery-car { position: relative; }
+  .delivery-box-emblem {
+    position: absolute; z-index: 2; right: 12%; top: 18%; display: grid; place-items: center;
+    width: 42px; height: 42px; border-radius: 12px; background: var(--yellow); color: var(--black);
+    font-size: 22px; line-height: 1; box-shadow: 0 8px 18px rgba(0,0,0,0.35);
   }
   .service-name { font-size: 1.1rem; font-weight: 800; margin-bottom: 8px; }
   .service-desc { font-size: 13px; color: var(--muted); line-height: 1.6; }
@@ -616,13 +617,15 @@
       height: 176px; min-height: 176px; margin: 2px -4px 18px;
       overflow: visible;
     }
+    .service-vehicle--suv { height: 220px; min-height: 220px; }
     .service-vehicle img {
       width: 100%; height: 176px; max-height: 176px;
       object-fit: contain; object-position: center; transform: none;
     }
+    .service-vehicle--suv img { height: 220px; max-height: 220px; }
     .service-card:hover .service-vehicle img,
     .service-card:hover .service-vehicle--motorbike img { transform: none; }
-    .kantanka-star-emblem { left: 44%; top: 56%; font-size: 22px; }
+    .delivery-box-emblem { right: 8%; top: 16%; }
     .work-pay-grid { grid-template-columns: 1fr; gap: 20px; }
     
     .founder-container { padding: 20px; }
@@ -800,11 +803,12 @@ Error generating stack: `+l.message+`
   <div class="services-grid reveal">
     <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/standard-car.webp" alt="HY3N Standard car" loading="lazy" decoding="async"></div><div class="service-name">Standard</div><div class="service-desc">Affordable everyday rides for your daily commute, errands, and more.</div><span class="service-badge badge-green">Most Popular</span></div>
     <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/comfort-car.webp" alt="HY3N Comfort car" loading="lazy" decoding="async"></div><div class="service-name">Comfort</div><div class="service-desc">More space, more comfort — perfect for longer trips and family travel.</div><span class="service-badge badge-yellow">Premium</span></div>
-    <div class="service-card"><div class="service-vehicle service-vehicle--kantanka"><img src="assets/vehicles/kantanka-car.webp" alt="HY3N Kantanka Executive car" loading="lazy" decoding="async"><span class="kantanka-star-emblem" aria-hidden="true">★</span></div><div class="service-name">Kantanka</div><div class="service-desc">Premium rides in Ghana's proudly made Kantanka vehicles. Executive class.</div><span class="service-badge badge-yellow">Executive</span></div>
+    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/kantanka-car.webp" alt="HY3N Kantanka car" loading="lazy" decoding="async"></div><div class="service-name">Kantanka</div><div class="service-desc">Premium rides in Ghana's proudly made Kantanka vehicles.</div><span class="service-badge badge-yellow">Ghana Made</span></div>
     <div class="service-card"><div class="service-vehicle service-vehicle--motorbike"><img src="assets/vehicles/okada-motorbike.webp" alt="HY3N Okada motorbike" loading="lazy" decoding="async"></div><div class="service-name">Okada</div><div class="service-desc">Fast motorcycle rides through traffic — beat the city rush every time.</div><span class="service-badge badge-red">Fastest</span></div>
-    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/delivery-motorbike.webp" alt="HY3N Express Delivery motorbike" loading="lazy" decoding="async"></div><div class="service-name">Express Delivery</div><div class="service-desc">Send packages across the city fast, securely and at great prices.</div><span class="service-badge badge-green">Same Day</span></div>
-    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/comfort-car.webp" alt="HY3N Airport Pickup car" loading="lazy" decoding="async"></div><div class="service-name">Airport Pickup</div><div class="service-desc">Reliable airport transfers to and from Kotoka International — zero stress.</div><span class="service-badge badge-yellow">Pre-Book</span></div>
-    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/standard-car.webp" alt="HY3N Car Rental car" loading="lazy" decoding="async"></div><div class="service-name">Car Rental</div><div class="service-desc">Flexible daily or weekly car rentals with or without a driver.</div><span class="service-badge badge-green">New</span></div>
+    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/delivery-motorbike.webp" alt="HY3N Delivery motorbike" loading="lazy" decoding="async"></div><div class="service-name">Delivery</div><div class="service-desc">Send packages across the city fast, securely and at great prices.</div><span class="service-badge badge-green">Same Day</span></div>
+    <div class="service-card"><div class="service-vehicle service-vehicle--delivery-car"><img src="assets/vehicles/standard-car.webp" alt="HY3N Car Delivery car" loading="lazy" decoding="async"><span class="delivery-box-emblem" aria-label="Car Delivery">▣</span></div><div class="service-name">Car Delivery</div><div class="service-desc">Secure, comfortable delivery for larger or delicate items.</div><span class="service-badge badge-green">Car + Box</span></div>
+    <div class="service-card"><div class="service-vehicle service-vehicle--suv"><img src="assets/vehicles/onantefo-airport-suv.png" alt="Kantanka Onantefo SUV for HY3N Airport Pickup" loading="lazy" decoding="async"></div><div class="service-name">Airport Pickup</div><div class="service-desc">Reliable airport transfers to and from Kotoka International — arriving soon.</div><span class="service-badge badge-yellow">Coming Soon</span></div>
+    <div class="service-card"><div class="service-vehicle service-vehicle--suv"><img src="assets/vehicles/onantefo-rental-suv.png" alt="Kantanka Onantefo SUV for HY3N Car Rental" loading="lazy" decoding="async"></div><div class="service-name">Car Rental</div><div class="service-desc">Flexible daily or weekly car rentals with or without a driver — arriving soon.</div><span class="service-badge badge-green">Coming Soon</span></div>
   </div>
 </section>
 
@@ -1110,9 +1114,10 @@ Error generating stack: `+l.message+`
       <h4>Services</h4>
       <a href="/#">Standard Rides</a>
       <a href="/#">Comfort Rides</a>
-      <a href="/#">Kantanka Executive</a>
+      <a href="/#">Kantanka</a>
       <a href="/#">Okada</a>
-      <a href="/#">Express Delivery</a>
+      <a href="/#">Delivery</a>
+      <a href="/#">Car Delivery</a>
       <a href="/#">Airport Pickup</a>
     </div>
     <div class="footer-col">
@@ -1377,7 +1382,7 @@ Error generating stack: `+l.message+`
       <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Email Address</label><input name="email" type="email" placeholder="kofi@example.com" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
       <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">City / Location *</label><input name="city" required placeholder="e.g. Accra, Kumasi" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"/></div>
       <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Do you have a valid rider's licence? *</label><select name="hasLicence" required style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"><option value="">Select</option><option>Yes</option><option>No — but I am willing to get one</option></select></div>
-      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Intended Use *</label><select name="intendedUse" required style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"><option value="">Select</option><option>Okada (Passenger Transport)</option><option>Express Delivery</option><option>Both</option></select></div>
+      <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Intended Use *</label><select name="intendedUse" required style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"><option value="">Select</option><option>Okada (Passenger Transport)</option><option>Delivery</option><option>Both</option></select></div>
       <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">How did you hear about HY3N? *</label><select name="hearAbout" required style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;box-sizing:border-box;"><option value="">Select</option><option>Facebook</option><option>TikTok</option><option>Instagram</option><option>WhatsApp</option><option>Friend / Family</option><option>Radio / TV</option><option>Flyer / Poster</option><option>Google Search</option><option>Existing HY3N Driver</option><option>Other</option></select></div>
       <div><label style="color:#ccc;font-size:0.85rem;display:block;margin-bottom:4px;">Additional Message</label><textarea name="message" rows="3" placeholder="Anything else you'd like us to know?" style="width:100%;padding:10px 12px;background:#1a1a1a;border:1px solid #333;border-radius:8px;color:#fff;font-size:0.95rem;resize:vertical;box-sizing:border-box;"></textarea></div>
       <button type="submit" style="background:linear-gradient(135deg,#D4AF37,#B8960C);color:#000;font-weight:700;font-size:1rem;padding:14px;border:none;border-radius:10px;cursor:pointer;margin-top:4px;">Submit Application ✦</button>
