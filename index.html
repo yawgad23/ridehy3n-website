@@ -196,6 +196,7 @@
   .service-card:hover .service-vehicle--motorbike img { transform: scale(0.98) translateY(-2px); }
   .service-vehicle--suv { height: 214px; }
   .service-vehicle--delivery-car { position: relative; }
+  .coming-soon-heading { margin-top: 84px; }
   .delivery-box-emblem {
     position: absolute; z-index: 2; right: 12%; top: 18%; display: grid; place-items: center;
     width: 42px; height: 42px; border-radius: 12px; background: var(--yellow); color: var(--black);
@@ -801,14 +802,21 @@ Error generating stack: `+l.message+`
     <p class="section-sub centered" style="margin-bottom:0">From everyday commutes to premium rides and fast deliveries — HY3N has you covered in one app.</p>
   </div>
   <div class="services-grid reveal">
-    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/standard-car.webp" alt="HY3N Standard car" loading="lazy" decoding="async"></div><div class="service-name">Standard</div><div class="service-desc">Affordable everyday rides for your daily commute, errands, and more.</div><span class="service-badge badge-green">Most Popular</span></div>
-    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/comfort-car.webp" alt="HY3N Comfort car" loading="lazy" decoding="async"></div><div class="service-name">Comfort</div><div class="service-desc">More space, more comfort — perfect for longer trips and family travel.</div><span class="service-badge badge-yellow">Premium</span></div>
-    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/kantanka-car.webp" alt="HY3N Kantanka car" loading="lazy" decoding="async"></div><div class="service-name">Kantanka</div><div class="service-desc">Premium rides in Ghana's proudly made Kantanka vehicles.</div><span class="service-badge badge-yellow">Ghana Made</span></div>
-    <div class="service-card"><div class="service-vehicle service-vehicle--motorbike"><img src="assets/vehicles/okada-motorbike.webp" alt="HY3N Okada motorbike" loading="lazy" decoding="async"></div><div class="service-name">Okada</div><div class="service-desc">Fast motorcycle rides through traffic — beat the city rush every time.</div><span class="service-badge badge-red">Fastest</span></div>
-    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/delivery-motorbike.webp" alt="HY3N Delivery motorbike" loading="lazy" decoding="async"></div><div class="service-name">Delivery</div><div class="service-desc">Send packages across the city fast, securely and at great prices.</div><span class="service-badge badge-green">Same Day</span></div>
-    <div class="service-card"><div class="service-vehicle service-vehicle--delivery-car"><img src="assets/vehicles/standard-car.webp" alt="HY3N Car Delivery car" loading="lazy" decoding="async"><span class="delivery-box-emblem" aria-label="Car Delivery">▣</span></div><div class="service-name">Car Delivery</div><div class="service-desc">Secure, comfortable delivery for larger or delicate items.</div><span class="service-badge badge-green">Car + Box</span></div>
-    <div class="service-card"><div class="service-vehicle service-vehicle--suv"><img src="assets/vehicles/onantefo-airport-suv.png" alt="Kantanka Onantefo SUV for HY3N Airport Pickup" loading="lazy" decoding="async"></div><div class="service-name">Airport Pickup</div><div class="service-desc">Reliable airport transfers to and from Kotoka International — arriving soon.</div><span class="service-badge badge-yellow">Coming Soon</span></div>
-    <div class="service-card"><div class="service-vehicle service-vehicle--suv"><img src="assets/vehicles/onantefo-rental-suv.png" alt="Kantanka Onantefo SUV for HY3N Car Rental" loading="lazy" decoding="async"></div><div class="service-name">Car Rental</div><div class="service-desc">Flexible daily or weekly car rentals with or without a driver — arriving soon.</div><span class="service-badge badge-green">Coming Soon</span></div>
+    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/app-standard-vehicle.png" alt="HY3N Standard vehicle" loading="lazy" decoding="async"></div><div class="service-name">Standard</div><div class="service-desc">Affordable everyday rides for your daily commute, errands, and more.</div><span class="service-badge badge-green">Most Popular</span></div>
+    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/app-comfort-vehicle.png" alt="HY3N Comfort vehicle" loading="lazy" decoding="async"></div><div class="service-name">Comfort</div><div class="service-desc">Comfortable rides with extra amenities.</div><span class="service-badge badge-yellow">Premium</span></div>
+    <div class="service-card"><div class="service-vehicle"><img src="assets/vehicles/app-kantanka-vehicle.png" alt="HY3N Kantanka vehicle" loading="lazy" decoding="async"></div><div class="service-name">Kantanka</div><div class="service-desc">Proudly Ghanaian-made mini SUVs, priced the same as Comfort.</div><span class="service-badge badge-yellow">Ghana Made</span></div>
+    <div class="service-card"><div class="service-vehicle service-vehicle--delivery-car"><img src="assets/vehicles/app-standard-vehicle.png" alt="HY3N Car Delivery vehicle" loading="lazy" decoding="async"><span class="delivery-box-emblem" aria-label="Car Delivery">▣</span></div><div class="service-name">Car Delivery</div><div class="service-desc">Packages delivered safely by a car driver.</div><span class="service-badge badge-green">Car + Box</span></div>
+    <div class="service-card"><div class="service-vehicle service-vehicle--motorbike"><img src="assets/vehicles/app-okada-vehicle.png" alt="HY3N Okada motorbike" loading="lazy" decoding="async"></div><div class="service-name">Okada</div><div class="service-desc">Fast bike rides to beat traffic.</div><span class="service-badge badge-red">Fastest</span></div>
+    <div class="service-card"><div class="service-vehicle service-vehicle--motorbike"><img src="assets/vehicles/app-delivery-vehicle.png" alt="HY3N Delivery motorbike" loading="lazy" decoding="async"></div><div class="service-name">Delivery</div><div class="service-desc">Fast package delivery across the city.</div><span class="service-badge badge-green">Same Day</span></div>
+  </div>
+  <div class="centered coming-soon-heading">
+    <span class="section-tag">Coming Soon</span>
+    <h3 class="section-title centered" style="font-size:2rem; margin-top:16px;">More ways to move.</h3>
+    <p class="section-sub centered" style="margin-bottom:0">Airport Pickup and Car Rental are being prepared for a future release.</p>
+  </div>
+  <div class="services-grid reveal">
+    <div class="service-card"><div class="service-vehicle service-vehicle--suv"><img src="assets/vehicles/onantefo-airport-suv.png" alt="Kantanka Onantefo SUV for HY3N Airport Pickup" loading="lazy" decoding="async"></div><div class="service-name">Airport Pickup</div><div class="service-desc">Reliable airport transfers to and from Kotoka International.</div><span class="service-badge badge-yellow">Coming Soon</span></div>
+    <div class="service-card"><div class="service-vehicle service-vehicle--suv"><img src="assets/vehicles/onantefo-rental-suv.png" alt="Kantanka Onantefo SUV for HY3N Car Rental" loading="lazy" decoding="async"></div><div class="service-name">Car Rental</div><div class="service-desc">Flexible daily or weekly car rentals with or without a driver.</div><span class="service-badge badge-green">Coming Soon</span></div>
   </div>
 </section>
 
